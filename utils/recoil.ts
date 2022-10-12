@@ -1,8 +1,8 @@
 import { atom } from 'recoil'
 import { userProps, productProps } from './types'
 
-export const openModal = atom({
-  key: 'openModal',
+export const openModalOrder = atom({
+  key: 'openModalOrder',
   default: false
 })
 
