@@ -15,3 +15,8 @@ export const cart = atom<productProps[]>({
   key: 'productsSelected',
   default: []
 })
+
+export const idOrderList = atom<number[]>({
+  key: 'idOrderList',
+  default: []
+})

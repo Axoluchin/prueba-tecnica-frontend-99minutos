@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import {
   AppBar,
   Toolbar,
@@ -12,15 +13,19 @@ import {
   Typography
 } from '@mui/material'
 import { ShoppingCart } from '@mui/icons-material'
+
 import { useRecoilState } from 'recoil'
 import { cart, userData } from '../utils/recoil'
 import CartList from './CartList'
+import ModalNewOrder from './ModalNewOrder'
 
 const Header = () => {
   const [cartData] = useRecoilState(cart)
   const [user] = useRecoilState(userData)
-  const { spacing } = useTheme()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const [openModalOrder, setOpenModalOrder] = useState(false)
+  const { spacing } = useTheme()
+  const router = useRouter()
   const open = Boolean(anchorEl)
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -61,20 +66,27 @@ const Header = () => {
                 <ShoppingCart />
               </Badge>
             </IconButton>
-            <Link href="/register">
-              <Button
-                variant="contained"
-                sx={{
-                  marginLeft: spacing(2)
-                }}
-              >
-                {user ? 'New Order' : 'Register for order'}
-              </Button>
-            </Link>
+            <Button
+              variant="contained"
+              sx={{
+                marginLeft: spacing(2)
+              }}
+              onClick={
+                () =>
+                  user ? setOpenModalOrder(true) : router.push('/register')
+                // setOpenModalOrder(true)
+              }
+            >
+              {user ? 'New Order' : 'Register for order'}
+            </Button>
           </Grid>
         </Grid>
       </Toolbar>
       <CartList open={open} anchorEl={anchorEl} onClose={handleClose} />
+      <ModalNewOrder
+        open={openModalOrder}
+        onClose={() => setOpenModalOrder(false)}
+      />
     </AppBar>
   )
 }
