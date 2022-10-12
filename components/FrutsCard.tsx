@@ -6,7 +6,8 @@ import {
   Button,
   ButtonGroup,
   Divider,
-  Grid
+  Grid,
+  CardActions
 } from '@mui/material'
 import { frutsCardProps } from '../utils/componentTypes'
 
@@ -16,14 +17,13 @@ const FrutsCard = ({ frutData }: frutsCardProps) => {
     <Card
       sx={{
         maxWidth: '350px',
-        margin: spacing(1)
+        margin: spacing(1),
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between'
       }}
     >
-      <CardContent
-        sx={{
-          height: '100%'
-        }}
-      >
+      <CardContent>
         <Typography variant="h2" textAlign="center">
           {frutData.frut}
         </Typography>
@@ -31,25 +31,23 @@ const FrutsCard = ({ frutData }: frutsCardProps) => {
         <Typography variant="body2" color="text.secondary">
           {frutData.desc}
         </Typography>
-        <Divider />
-        <Grid container justifyContent="center">
-          <ButtonGroup
-            variant="outlined"
-            aria-label="outlined button group"
-            sx={{
-              marginTop: spacing(1)
-            }}
-          >
-            <Button>
-              <b>-</b>
-            </Button>
-            <Button disabled>0</Button>
-            <Button>
-              <b>+</b>
-            </Button>
-          </ButtonGroup>
-        </Grid>
       </CardContent>
+      <div>
+        <Divider />
+        <CardActions>
+          <Grid container justifyContent="center">
+            <ButtonGroup variant="outlined" aria-label="outlined button group">
+              <Button>
+                <b>-</b>
+              </Button>
+              <Button disabled>0</Button>
+              <Button>
+                <b>+</b>
+              </Button>
+            </ButtonGroup>
+          </Grid>
+        </CardActions>
+      </div>
     </Card>
   )
 }
