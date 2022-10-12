@@ -15,7 +15,7 @@ import { useRecoilState } from 'recoil'
 import { cart } from '../utils/recoil'
 import { frutsCardProps } from '../utils/componentTypes'
 
-const FrutsCard = ({ frutData }: frutsCardProps) => {
+const FruitsCard = ({ frutData }: frutsCardProps) => {
   const { spacing } = useTheme()
   const [cartData, setCardData] = useRecoilState(cart)
   const [frutCount, setFrutCount] = useState(0)
@@ -105,4 +105,4 @@ const FrutsCard = ({ frutData }: frutsCardProps) => {
   )
 }
 
-export default FrutsCard
+export default FruitsCard
