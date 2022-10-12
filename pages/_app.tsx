@@ -3,6 +3,8 @@ import Head from 'next/head'
 import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { RecoilRoot } from 'recoil'
+
+import Header from '../components/Header'
 import { mainTheme } from '../utils/theme'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
@@ -14,6 +16,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <RecoilRoot>
         <ThemeProvider theme={mainTheme}>
           <CssBaseline />
+          <Header />
           <Component {...pageProps} />
         </ThemeProvider>
       </RecoilRoot>
