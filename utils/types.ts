@@ -1,12 +1,15 @@
-export interface registerProps {
+export interface userProps {
   FirstName: string
   LastName: string
-  IsAdmin: boolean
   Email: string
+}
+
+export interface registerProps extends userProps {
+  IsAdmin: boolean
   Password: string
 }
 
-export default interface productProps {
+export interface productProps {
   name: string
   amount: number
 }
