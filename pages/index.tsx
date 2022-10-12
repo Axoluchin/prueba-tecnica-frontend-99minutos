@@ -9,7 +9,15 @@ const Home = () => {
     <Box>
       <Header />
       <Typography variant="h2">Fruits Shop for you</Typography>
-      <Grid container justifyContent="space-around" wrap="wrap">
+      <Grid
+        container
+        justifyContent="space-around"
+        wrap="wrap"
+        sx={{
+          maxWidth: '1100px',
+          margin: '0 auto'
+        }}
+      >
         {fruitList.map(frut => (
           <FruitsCard key={frut.name} frutData={frut} />
         ))}
