@@ -69,7 +69,7 @@ const FruitsCard = ({ frutData }: frutsCardProps) => {
   return (
     <Card
       sx={{
-        maxWidth: '350px',
+        maxWidth: '320px',
         margin: spacing(1),
         display: 'flex',
         flexDirection: 'column',
