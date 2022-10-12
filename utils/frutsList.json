@@ -1,0 +1,22 @@
+[
+  {
+    "frut": "🍎",
+    "name": "Apple",
+    "desc": "An apple is an edible fruit produced by an apple tree (Malus domestica). Apple trees are cultivated worldwide and are the most widely grown species in the genus Malus."
+  },
+  {
+    "frut": "🍐",
+    "name": "Pear",
+    "desc": "Pears are fruits produced and consumed around the world, growing on a tree and harvested in the Northern Hemisphere in late summer into October."
+  },
+  {
+    "frut": "🍌",
+    "name": "Banana",
+    "desc": "A banana is an elongated, edible fruit botanically a berry produced by several kinds of large herbaceous flowering plants in the genus Musa."
+  },
+  {
+    "frut": "🍇",
+    "name": "Grapes",
+    "desc": "A grape is a fruit, botanically a berry, of the deciduous woody vines of the flowering plant genus Vitis. Grapes are a non-climacteric type of fruit, generally occurring in clusters."
+  }
+]

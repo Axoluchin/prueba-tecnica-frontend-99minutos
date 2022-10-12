@@ -30,3 +30,9 @@ export interface orderProps {
   }
   Products: productProps[]
 }
+
+export interface frutsProps {
+  frut: string
+  name: string
+  desc: string
+}
