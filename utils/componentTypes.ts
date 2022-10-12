@@ -9,3 +9,8 @@ export interface cartListProps {
   anchorEl: HTMLElement | null
   onClose(): void
 }
+
+export default interface modalProps {
+  open: boolean
+  onClose(): void
+}
