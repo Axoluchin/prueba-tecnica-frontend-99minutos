@@ -1,12 +1,12 @@
 import { atom } from 'recoil'
-import { userProps, productProps } from './types'
+import { registerProps, productProps } from './types'
 
-export const openModal = atom({
-  key: 'openModal',
+export const openModalOrder = atom({
+  key: 'openModalOrder',
   default: false
 })
 
-export const userData = atom<userProps | undefined>({
+export const userData = atom<registerProps | undefined>({
   key: 'userData',
   default: undefined
 })

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Box,
   Paper,
@@ -7,14 +8,40 @@ import {
   Grid,
   useTheme
 } from '@mui/material'
-import Link from 'next/link'
+import axios from 'axios'
+import { useRouter } from 'next/router'
+import { useSetRecoilState } from 'recoil'
+
+import { userData } from '../utils/recoil'
+import { registerProps } from '../utils/types'
 
 const register = () => {
-  const { spacing, palette } = useTheme()
+  const [formData, setFormData] = useState<registerProps>({
+    Email: '',
+    FirstName: '',
+    IsAdmin: false,
+    LastName: '',
+    Password: ''
+  })
+  const setUserData = useSetRecoilState(userData)
+  const router = useRouter()
+  const { spacing } = useTheme()
+
+  const submit = () => {
+    axios
+      .post(`${process.env.NEXT_PUBLIC_API}/users/create`, formData)
+      .then(response => {
+        alert(response.data.message)
+        router.push('/')
+        setUserData(formData)
+      })
+      .catch(err => console.log(err))
+  }
+
   return (
     <Box
       sx={{
-        height: '100vh',
+        height: '90vh',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
@@ -42,6 +69,9 @@ const register = () => {
           sx={{
             marginY: spacing(1)
           }}
+          onChange={value =>
+            setFormData(data => ({ ...data, FirstName: value.target.value }))
+          }
         />
         <TextField
           variant="outlined"
@@ -50,6 +80,9 @@ const register = () => {
           sx={{
             marginY: spacing(1)
           }}
+          onChange={value =>
+            setFormData(data => ({ ...data, LastName: value.target.value }))
+          }
         />
         <TextField
           variant="outlined"
@@ -58,6 +91,9 @@ const register = () => {
           sx={{
             marginY: spacing(1)
           }}
+          onChange={value =>
+            setFormData(data => ({ ...data, Email: value.target.value }))
+          }
         />
         <TextField
           variant="outlined"
@@ -66,31 +102,20 @@ const register = () => {
           sx={{
             marginY: spacing(1)
           }}
+          onChange={value =>
+            setFormData(data => ({ ...data, Password: value.target.value }))
+          }
         />
-        <Grid
-          container
-          justifyContent="center"
-          alignItems="center"
-          flexDirection="column"
-        >
+        <Grid container justifyContent="center">
           <Button
             variant="contained"
             sx={{
               marginY: spacing(1)
             }}
+            onClick={submit}
           >
             Register User
           </Button>
-          <Link href={'/login'}>
-            <Typography
-              sx={{
-                cursor: 'pointer'
-              }}
-              color={palette.primary.main}
-            >
-              Login
-            </Typography>
-          </Link>
         </Grid>
       </Paper>
     </Box>

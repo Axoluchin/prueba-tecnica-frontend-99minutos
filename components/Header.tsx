@@ -8,15 +8,17 @@ import {
   Grid,
   Badge,
   useTheme,
-  IconButton
+  IconButton,
+  Typography
 } from '@mui/material'
 import { ShoppingCart } from '@mui/icons-material'
 import { useRecoilState } from 'recoil'
-import { cart } from '../utils/recoil'
+import { cart, userData } from '../utils/recoil'
 import CartList from './CartList'
 
 const Header = () => {
   const [cartData] = useRecoilState(cart)
+  const [user] = useRecoilState(userData)
   const { spacing } = useTheme()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
@@ -43,19 +45,32 @@ const Header = () => {
             />
           </Link>
           <Grid alignItems="center" justifyContent="center">
-            <IconButton onClick={handleClick} disabled={!cartData.length}>
-              <Badge badgeContent={cartData.length} color="primary">
-                <ShoppingCart />
-              </Badge>
-            </IconButton>
-            <Button
-              variant="contained"
+            {user && (
+              <Typography display="inline">
+                {user.FirstName} {user.LastName}
+              </Typography>
+            )}
+            <IconButton
+              onClick={handleClick}
+              disabled={!cartData.length}
               sx={{
                 marginLeft: spacing(2)
               }}
             >
-              New Order
-            </Button>
+              <Badge badgeContent={cartData.length} color="primary">
+                <ShoppingCart />
+              </Badge>
+            </IconButton>
+            <Link href="/register">
+              <Button
+                variant="contained"
+                sx={{
+                  marginLeft: spacing(2)
+                }}
+              >
+                {user ? 'New Order' : 'Register for order'}
+              </Button>
+            </Link>
           </Grid>
         </Grid>
       </Toolbar>
