@@ -33,11 +33,7 @@ const register = () => {
       .then(response => {
         alert(response.data.message)
         router.push('/')
-        setUserData({
-          Email: formData.Email,
-          FirstName: formData.FirstName,
-          LastName: formData.LastName
-        })
+        setUserData(formData)
       })
       .catch(err => console.log(err))
   }
