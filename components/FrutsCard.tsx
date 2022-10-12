@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
   Card,
   CardContent,
@@ -9,10 +10,62 @@ import {
   Grid,
   CardActions
 } from '@mui/material'
+import { useRecoilState } from 'recoil'
+
+import { cart } from '../utils/recoil'
 import { frutsCardProps } from '../utils/componentTypes'
 
 const FrutsCard = ({ frutData }: frutsCardProps) => {
   const { spacing } = useTheme()
+  const [cartData, setCardData] = useRecoilState(cart)
+  const [frutCount, setFrutCount] = useState(0)
+
+  useEffect(() => {
+    cartData.forEach(product =>
+      product.name === frutData.name ? setFrutCount(product.amount) : 0
+    )
+  }, [cartData])
+
+  const addFrut = () => {
+    const newCart = cartData.map(product => {
+      const newProduct = {
+        ...product,
+        amount: product.name === frutData.name ? frutCount + 1 : product.amount
+      }
+      return newProduct
+    })
+
+    !frutCount &&
+      newCart.push({
+        amount: 1,
+        name: frutData.name
+      })
+
+    setCardData(newCart)
+  }
+
+  const removeFrut = () => {
+    if (frutCount > 1)
+      setCardData(data =>
+        data.map(product => {
+          const newProduct = {
+            ...product,
+            amount:
+              product.name === frutData.name ? frutCount - 1 : product.amount
+          }
+          return newProduct
+        })
+      )
+    else {
+      const newCard = cartData
+      const searchProd = newCard.filter(
+        product => product.name !== frutData.name
+      )
+      setCardData(searchProd)
+      setFrutCount(0)
+    }
+  }
+
   return (
     <Card
       sx={{
@@ -37,11 +90,11 @@ const FrutsCard = ({ frutData }: frutsCardProps) => {
         <CardActions>
           <Grid container justifyContent="center">
             <ButtonGroup variant="outlined" aria-label="outlined button group">
-              <Button>
+              <Button disabled={!frutCount} onClick={removeFrut}>
                 <b>-</b>
               </Button>
-              <Button disabled>0</Button>
-              <Button>
+              <Button disabled>{frutCount}</Button>
+              <Button onClick={addFrut}>
                 <b>+</b>
               </Button>
             </ButtonGroup>
