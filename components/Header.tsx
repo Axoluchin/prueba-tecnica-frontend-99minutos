@@ -15,13 +15,14 @@ import {
 import { ShoppingCart } from '@mui/icons-material'
 
 import { useRecoilState } from 'recoil'
-import { cart, userData } from '../utils/recoil'
+import { cart, userData, idOrderList } from '../utils/recoil'
 import CartList from './CartList'
 import ModalNewOrder from './ModalNewOrder'
 
 const Header = () => {
   const [cartData] = useRecoilState(cart)
   const [user] = useRecoilState(userData)
+  const [ordersID] = useRecoilState(idOrderList)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [openModalOrder, setOpenModalOrder] = useState(false)
   const { spacing } = useTheme()
@@ -49,6 +50,16 @@ const Header = () => {
               }}
             />
           </Link>
+          <Button
+            variant="outlined"
+            sx={{
+              marginLeft: spacing(2)
+            }}
+            onClick={() => ordersID.length && router.push('/orders')}
+            disabled={!ordersID.length}
+          >
+            My Orders
+          </Button>
           <Grid alignItems="center" justifyContent="center">
             {user && (
               <Typography display="inline">

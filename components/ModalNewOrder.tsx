@@ -11,7 +11,7 @@ import {
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import axios from 'axios'
 
-import { orderProps } from '../utils/types'
+import { orderFormProps } from '../utils/types'
 import modalProps from '../utils/componentTypes'
 import { cart, userData, idOrderList } from '../utils/recoil'
 
@@ -19,7 +19,7 @@ const ModalNewOrder = ({ onClose, open }: modalProps) => {
   const [cartData] = useRecoilState(cart)
   const [user] = useRecoilState(userData)
   const idOrders = useSetRecoilState(idOrderList)
-  const [orderData, setOrderData] = useState<orderProps>({
+  const [orderData, setOrderData] = useState<orderFormProps>({
     DestinationAddress: {
       City: '',
       Coordinates: '',
