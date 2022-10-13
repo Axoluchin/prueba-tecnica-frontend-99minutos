@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import {
   Box,
   Paper,
@@ -27,7 +27,7 @@ const register = () => {
   const router = useRouter()
   const { spacing } = useTheme()
 
-  const submit = () => {
+  const submit = useCallback(() => {
     axios
       .post(`${process.env.NEXT_PUBLIC_API}/users/create`, formData)
       .then(response => {
@@ -35,8 +35,8 @@ const register = () => {
         router.push('/')
         setUserData(formData)
       })
-      .catch(err => console.log(err))
-  }
+      .catch(err => alert(err.message))
+  }, [formData])
 
   return (
     <Box

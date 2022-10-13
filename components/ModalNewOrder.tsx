@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import {
   Modal,
   Typography,
@@ -16,7 +16,7 @@ import modalProps from '../utils/componentTypes'
 import { cart, userData, idOrderList } from '../utils/recoil'
 
 const ModalNewOrder = ({ onClose, open }: modalProps) => {
-  const [cartData] = useRecoilState(cart)
+  const [cartData, setCartData] = useRecoilState(cart)
   const [user] = useRecoilState(userData)
   const idOrders = useSetRecoilState(idOrderList)
   const [orderData, setOrderData] = useState<orderFormProps>({
@@ -41,7 +41,7 @@ const ModalNewOrder = ({ onClose, open }: modalProps) => {
     setOrderData(data => ({ ...data, Products: cartData }))
   }, [cartData])
 
-  const submitData = () => {
+  const submitData = useCallback(() => {
     const token = Buffer.from(
       `${user?.Email}:${user?.Password}`,
       'utf8'
@@ -53,13 +53,14 @@ const ModalNewOrder = ({ onClose, open }: modalProps) => {
         }
       })
       .then(result => {
-        console.log(result)
         idOrders(data => [result.data.Order.ID, ...data])
         alert('Save Order')
         onClose()
+        setCartData([])
       })
-      .catch(err => console.log(err))
-  }
+      .catch(err => alert(err.message))
+  }, [user, orderData])
+
   return (
     <Modal
       open={open}

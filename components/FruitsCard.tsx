@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import {
   Card,
   CardContent,
@@ -26,7 +26,7 @@ const FruitsCard = ({ frutData }: frutsCardProps) => {
     )
   }, [cartData])
 
-  const addFrut = () => {
+  const addFrut = useCallback(() => {
     const newCart = cartData.map(product => {
       const newProduct = {
         ...product,
@@ -47,9 +47,9 @@ const FruitsCard = ({ frutData }: frutsCardProps) => {
       })
 
     setCardData(newCart)
-  }
+  }, [cartData])
 
-  const removeFrut = () => {
+  const removeFrut = useCallback(() => {
     if (frutCount > 1)
       setCardData(data =>
         data.map(product => {
@@ -73,7 +73,7 @@ const FruitsCard = ({ frutData }: frutsCardProps) => {
       setCardData(searchProd)
       setFrutCount(0)
     }
-  }
+  }, [cartData])
 
   return (
     <Card

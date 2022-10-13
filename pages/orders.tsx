@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import {
   Box,
   Typography,
@@ -27,7 +27,7 @@ const Orders = () => {
     'utf8'
   ).toString('base64')
 
-  useEffect(() => {
+  const getAllOrders = useCallback(() => {
     Promise.all(
       ordersID.map(order => {
         return axios.get(`${process.env.NEXT_PUBLIC_API}/orders/${order}`, {
@@ -43,7 +43,11 @@ const Orders = () => {
           .map(data => data.data.Order)
         setUnkowData(filteredResponses)
       })
-      .catch(err => console.log(err))
+      .catch(err => alert(err.message))
+  }, [ordersID])
+
+  useEffect(() => {
+    getAllOrders()
   }, [ordersID])
 
   const deleteOrder = (order: number) => {
@@ -57,11 +61,11 @@ const Orders = () => {
           }
         }
       )
-      .then(result => {
-        console.log(result.status)
+      .then(() => {
         alert('Delete status update')
+        getAllOrders()
       })
-      .catch(err => console.log(err))
+      .catch(err => alert(err.message))
   }
 
   return (
