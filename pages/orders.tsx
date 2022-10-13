@@ -36,13 +36,33 @@ const Orders = () => {
           }
         })
       })
-    ).then(responses => {
-      const filteredResponses = responses
-        .filter(res => res.status === 200)
-        .map(data => data.data.Order)
-      setUnkowData(filteredResponses)
-    })
+    )
+      .then(responses => {
+        const filteredResponses = responses
+          .filter(res => res.status === 200)
+          .map(data => data.data.Order)
+        setUnkowData(filteredResponses)
+      })
+      .catch(err => console.log(err))
   }, [ordersID])
+
+  const deleteOrder = (order: number) => {
+    axios
+      .put(
+        `${process.env.NEXT_PUBLIC_API}/orders/${order}/cancelado`,
+        undefined,
+        {
+          headers: {
+            Authorization: `Basic ${token}`
+          }
+        }
+      )
+      .then(result => {
+        console.log(result.status)
+        alert('Delete status update')
+      })
+      .catch(err => console.log(err))
+  }
 
   return (
     <Box>
@@ -80,7 +100,7 @@ const Orders = () => {
                 <TableCell>{order.Refund ? 'Yes' : 'No'}</TableCell>
                 <TableCell>{order.Products.length}</TableCell>
                 <TableCell width={10}>
-                  <IconButton>
+                  <IconButton onClick={() => deleteOrder(order.ID)}>
                     <Delete />
                   </IconButton>
                 </TableCell>
