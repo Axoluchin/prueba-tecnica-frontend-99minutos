@@ -55,7 +55,7 @@ const ModalNewOrder = ({ onClose, open }: modalProps) => {
       .then(result => {
         console.log(result)
         idOrders(data => [result.data.Order.ID, ...data])
-        alert('Orden registrada')
+        alert('Save Order')
         onClose()
       })
       .catch(err => console.log(err))

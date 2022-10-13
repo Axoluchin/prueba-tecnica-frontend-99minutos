@@ -30,7 +30,11 @@ const FruitsCard = ({ frutData }: frutsCardProps) => {
     const newCart = cartData.map(product => {
       const newProduct = {
         ...product,
-        amount: product.name === frutData.name ? frutCount + 1 : product.amount
+        amount: product.name === frutData.name ? frutCount + 1 : product.amount,
+        Weight:
+          product.name === frutData.name
+            ? (frutCount + 1) * frutData.Weight
+            : product.amount
       }
       return newProduct
     })
@@ -38,7 +42,8 @@ const FruitsCard = ({ frutData }: frutsCardProps) => {
     !frutCount &&
       newCart.push({
         amount: 1,
-        name: frutData.name
+        name: frutData.name,
+        Weight: frutData.Weight
       })
 
     setCardData(newCart)
@@ -51,7 +56,11 @@ const FruitsCard = ({ frutData }: frutsCardProps) => {
           const newProduct = {
             ...product,
             amount:
-              product.name === frutData.name ? frutCount - 1 : product.amount
+              product.name === frutData.name ? frutCount - 1 : product.amount,
+            Weight:
+              product.name === frutData.name
+                ? (frutCount - 1) * frutData.Weight
+                : product.amount
           }
           return newProduct
         })

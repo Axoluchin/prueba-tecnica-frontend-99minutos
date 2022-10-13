@@ -12,6 +12,7 @@ export interface registerProps extends userProps {
 export interface productProps {
   name: string
   amount: number
+  Weight: number
 }
 
 export interface orderProps {
@@ -35,4 +36,5 @@ export interface frutsProps {
   frut: string
   name: string
   desc: string
+  Weight: number
 }
